@@ -227,7 +227,6 @@ class Heading:
                 attr.update(special)
             # process adapted attribute types
             if special and TYPE_PATTERN['ADAPTED'].match(attr['type']):
-                assert context is not None, 'Declaration context is not set'
                 adapter_name = special['type']
                 try:
                     attr.update(adapter=get_adapter(context, adapter_name))

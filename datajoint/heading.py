@@ -229,9 +229,10 @@ class Heading:
             if special and TYPE_PATTERN['ADAPTED'].match(attr['type']):
                 adapter_name = special['type']
                 try:
+                    assert context is not None
                     attr.update(adapter=get_adapter(context, adapter_name))
-                except DataJointError:
-                    # if no adapter, then delay the error until the first invocation
+                except (DataJointError, AssertionError):
+                    # if no adapter or no context, then delay the error until the first invocation
                     attr.update(adapter=AttributeAdapter())
                 else:
                     attr.update(type=attr['adapter'].attribute_type)

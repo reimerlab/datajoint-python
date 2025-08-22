@@ -13,7 +13,6 @@ from .errors import DataJointError
 import sys
 
 # Import requirements based on Python version
-print(sys.version_info[0], sys.version_info[1])
 if sys.version_info[0] >= 3 and sys.version_info[1] >= 10:
     from collections.abc import MutableMapping
 else:

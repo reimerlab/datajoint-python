@@ -1,5 +1,4 @@
 from pathlib import Path, PurePosixPath, PureWindowsPath
-from collections import Mapping
 from tqdm import tqdm
 from .settings import config
 from .errors import DataJointError, MissingExternalFile
@@ -9,6 +8,14 @@ from .declare import EXTERNAL_TABLE_ROOT
 from . import s3
 from .utils import safe_write, safe_copy
 from . import errors
+import sys
+
+# Import requirements based on Python version
+if sys.version_info[0] >= 3 and sys.version_info[1] >= 10:
+    from collections.abc import Mapping
+else:
+    from collections import Mapping
+
 CACHE_SUBFOLDING = (2, 2)   # (2, 2) means  "0123456789abcd" will be saved as "01/23/0123456789abcd"
 SUPPORT_MIGRATED_BLOBS = True   # support blobs migrated from datajoint 0.11.*
 

@@ -10,6 +10,15 @@ import logging
 import collections
 from enum import Enum
 from .errors import DataJointError
+import sys
+
+# Import requirements based on Python version
+print(sys.version_info[0], sys.version_info[1])
+if sys.version_info[0] >= 3 and sys.version_info[1] >= 10:
+    from collections.abc import MutableMapping
+else:
+    from collections import MutableMapping
+    
 
 LOCALCONFIG = 'dj_local_conf.json'
 GLOBALCONFIG = '.datajoint_config.json'
@@ -59,7 +68,7 @@ log_levels = {
 }
 
 
-class Config(collections.MutableMapping):
+class Config(MutableMapping):
 
     instance = None
 

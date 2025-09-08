@@ -14,6 +14,14 @@ from .errors import DataJointError
 from .utils import OrderedDict
 from .settings import config
 
+import sys
+
+# Import requirements based on Python version
+if sys.version_info[0] >= 3 and sys.version_info[1] >= 10:
+    from collections.abc import Mapping, ByteString, MutableSequence, Set, Sequence
+else:
+    from collections import Mapping, ByteString, MutableSequence, Set, Sequence
+
 
 mxClassID = OrderedDict((
     # see http://www.mathworks.com/help/techdoc/apiref/mxclassid.html
@@ -173,17 +181,17 @@ class Blob:
             return self.pack_decimal(obj)
         if isinstance(obj, uuid.UUID):
             return self.pack_uuid(obj)
-        if isinstance(obj, collections.Mapping):
+        if isinstance(obj, Mapping):
             return self.pack_dict(obj)
         if isinstance(obj, str):
             return self.pack_string(obj)
-        if isinstance(obj, collections.ByteString):
+        if isinstance(obj, ByteString):
             return self.pack_bytes(obj)
-        if isinstance(obj, collections.MutableSequence):
+        if isinstance(obj, MutableSequence):
             return self.pack_list(obj)
-        if isinstance(obj, collections.Sequence):
+        if isinstance(obj, Sequence):
             return self.pack_tuple(obj)
-        if isinstance(obj, collections.Set):
+        if isinstance(obj, Set):
             return self.pack_set(obj)
         if obj is None:
             return self.pack_none()
